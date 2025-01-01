@@ -12,37 +12,40 @@
 				<div class="book" id="book-01">
 					<p class="title">Title</p>
 					<p class="author">Author</p>
-					<button class="btn-delete">Delete</button>
+					<button class="btn-delete" id="btn-delete">Delete</button>
 				</div>
 			</div>
 			<div class="book-list">
-				<button class="btn-display-book-list">Display books in a list</button>
+				<button id="btn-display-book-list" class="btn-display-book-list">
+					Display books in a list
+				</button>
 			</div>
-			<ul>
-				Current books:
-			</ul>
+			Current books:
+			<ul id="book-list"></ul>
 		</div>
 
 		<div class="sidebar">
 			<div class="new-book-header">Add a new book to the library</div>
-			<form action="/">
+			<form id="new-book-form">
 				<!-- form stuff here -->
 				<div>
-					<label for="new-title">Title:</label
-					><input type="text" name="new-title" id="new-title" />
+					<label for="newTitle" class="text-label">Title:</label
+					><input type="text" name="newTitle" id="newTitle" />
 				</div>
 
 				<div>
-					<label for="new-author">Author:</label
-					><input type="text" name="new-author" id="new-author" />
+					<label for="newAuthor" class="text-label">Author:</label
+					><input type="text" name="newAuthor" id="newAuthor" />
 				</div>
 
 				<div>
-					<input type="checkbox" name="new-is-read" id="new-is-read" />
-					<label for="new-is-read">Have you already read this book?</label>
+					<input type="checkbox" name="newIsRead" id="newIsRead" />
+					<label for="newIsRead">Have you already read this book?</label>
 				</div>
 
-				<div><button type="submit" class="btn-add">Add book</button></div>
+				<div>
+					<button type="submit" id="btn-add" class="btn-add">Add book</button>
+				</div>
 			</form>
 		</div>
 
