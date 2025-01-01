@@ -1,0 +1,43 @@
+* {
+	border: 0;
+	padding: 0;
+	font-family: system-ui;
+}
+
+.library {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, 200px);
+	grid-template-rows: repeat(auto-fit, 250px);
+}
+
+.book {
+	color: white;
+	border: none;
+	background-color: sienna;
+	border-radius: 12px;
+	padding: 12px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	font-weight: 600;
+	font-size: 2rem;
+}
+
+.author {
+	text-align: end;
+}
+
+.btn-delete {
+	align-self: flex-end;
+	margin-top: auto;
+
+	border: 0;
+	border-radius: 12px;
+
+	width: 100px;
+	height: 2rem;
+	line-height: 2rem;
+}
