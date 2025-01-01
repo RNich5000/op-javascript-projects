@@ -13,6 +13,7 @@
 
 .library {
 	display: grid;
+	gap: 1rem;
 	grid-template-columns: repeat(auto-fit, 200px);
 	grid-template-rows: repeat(auto-fit, 250px);
 }
