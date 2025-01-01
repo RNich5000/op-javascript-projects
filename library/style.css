@@ -16,6 +16,7 @@
 	gap: 1rem;
 	grid-template-columns: repeat(auto-fit, 200px);
 	grid-template-rows: repeat(auto-fit, 250px);
+	grid-auto-rows: 250px;
 }
 
 .book {
@@ -29,6 +30,10 @@
 	flex-direction: column;
 }
 
+.book.read {
+	background-color: aquamarine;
+}
+
 .title {
 	font-weight: 600;
 	font-size: 2rem;
@@ -40,7 +45,7 @@
 
 .btn-delete {
 	align-self: flex-end;
-	margin-top: auto;
+	margin-top: 12px;
 	width: 100px;
 }
 
@@ -73,6 +78,11 @@ form > div {
 .btn-add {
 	background-color: var(--color-primary);
 	color: white;
+}
+
+.btn-toggle {
+	margin-top: auto;
+	align-self: flex-end;
 }
 
 .book-list {

@@ -19,8 +19,10 @@ btnAdd.addEventListener("click", (event) => {
 	let form = document.querySelector("#new-book-form");
 	let title = form.newTitle.value;
 	let author = form.newAuthor.value;
-	let isRead = form.newIsRead.value ? true : false;
+	let isRead = form.newIsRead.checked;
 	createBook(title, author, isRead);
+
+	form.reset();
 });
 
 function createBook(title, author, isRead) {
@@ -46,6 +48,10 @@ function displayNewBook(book) {
 	div.classList.add("book");
 	div.id = `book-${book.id}`;
 
+	if (book.isRead) {
+		div.classList.add("read");
+	}
+
 	let pTitle = document.createElement("p");
 	pTitle.classList.add("title");
 	pTitle.textContent = book.title;
@@ -54,6 +60,11 @@ function displayNewBook(book) {
 	pAuthor.classList.add("author");
 	pAuthor.textContent = book.author;
 
+	let bToggle = document.createElement("button");
+	bToggle.classList.add("btn-toggle");
+	bToggle.textContent = "Toggle status";
+	bToggle.addEventListener("click", () => toggleReadStatus(book));
+
 	let bDelete = document.createElement("button");
 	bDelete.classList.add("btn-delete");
 	bDelete.textContent = "Delete";
@@ -61,6 +72,7 @@ function displayNewBook(book) {
 
 	div.appendChild(pTitle);
 	div.appendChild(pAuthor);
+	div.appendChild(bToggle);
 	div.appendChild(bDelete);
 
 	let lib = document.getElementById("library");
@@ -76,4 +88,16 @@ function deleteBook(id) {
 	divToDelete.remove();
 }
 
-createBook("test title", "test author", true);
+function toggleReadStatus(book) {
+	let bookToChange = document.getElementById(`book-${book.id}`);
+
+	if (book.isRead) {
+		bookToChange.classList.remove("read");
+	} else {
+		bookToChange.classList.add("read");
+	}
+
+	book.isRead = !book.isRead;
+}
+
+createBook("test title", "test author", false);
