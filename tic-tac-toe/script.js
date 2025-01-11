@@ -4,9 +4,10 @@ function Player(name, token) {
 }
 
 function createGame(player1, player2) {
-	const firstPlayer = new Player(player1, "X");
-	const secondPlayer = new Player(player2, "O");
+	let firstPlayer = new Player(player1, "X");
+	let secondPlayer = new Player(player2, "O");
 	let currentPlayer = firstPlayer;
+	let isGameRunning = true;
 
 	let board = [
 		["-", "-", "-"],
@@ -14,33 +15,59 @@ function createGame(player1, player2) {
 		["-", "-", "-"],
 	];
 
-	const switchPlayer = () => {
+	function switchPlayer() {
 		if (currentPlayer === firstPlayer) {
-			currentPlayer = secondPlayer;
+			return secondPlayer;
 		} else {
-			currentPlayer = firstPlayer;
+			return firstPlayer;
 		}
-	};
+	}
 
-	const displayBoard = () => {
+	function isWinner() {
+		const t = currentPlayer.token;
+
+		if (
+			(board[0][0] === t && board[0][1] === t && board[0][2] === t) ||
+			(board[1][0] === t && board[1][1] === t && board[1][2] === t) ||
+			(board[2][0] === t && board[2][1] === t && board[2][2] === t) ||
+			(board[0][0] === t && board[1][0] === t && board[2][0] === t) ||
+			(board[1][0] === t && board[1][1] === t && board[2][1] === t) ||
+			(board[2][0] === t && board[1][2] === t && board[2][2] === t) ||
+			(board[0][0] === t && board[1][1] === t && board[2][2] === t) ||
+			(board[2][0] === t && board[1][1] === t && board[0][2] === t)
+		) {
+			return true;
+		} else return false;
+	}
+
+	function displayBoard() {
 		board.forEach((row) => console.log(row));
 		console.log("-----------");
-	};
+	}
 
-	function updateBoard(row, col) {
-		board[row][col] = currentPlayer.token;
+	function startGame() {
+		while (isGameRunning) {
+			const row = prompt(currentPlayer.name + " row: ");
+			const col = prompt(currentPlayer.name + " column: ");
+			board[row][col] = currentPlayer.token;
+			displayBoard();
 
-		displayBoard();
-		switchPlayer();
+			if (isWinner()) {
+				console.log(currentPlayer.name + " wins!");
+				isGameRunning = false;
+			} else {
+				currentPlayer = switchPlayer();
+			}
+		}
 	}
 
 	return {
+		currentPlayer,
+		isGameRunning,
 		displayBoard,
-		updateBoard,
+		startGame,
 	};
 }
 
 const game = createGame("Rob", "Ella");
-game.displayBoard();
-game.updateBoard(0, 1);
-game.updateBoard(0, 2);
+game.startGame();
