@@ -45,10 +45,23 @@ function createGame(player1, player2) {
 		console.log("-----------");
 	}
 
+	function isValid(row, col) {
+		if (board[row][col] === "-") {
+			return true;
+		} else {
+			alert("That spot is already taken!");
+			return false;
+		}
+	}
+
 	function startGame() {
 		while (isGameRunning) {
 			const row = prompt(currentPlayer.name + " row: ");
 			const col = prompt(currentPlayer.name + " column: ");
+			if (!isValid(row, col)) {
+				continue;
+			}
+
 			board[row][col] = currentPlayer.token;
 			displayBoard();
 
@@ -61,12 +74,7 @@ function createGame(player1, player2) {
 		}
 	}
 
-	return {
-		currentPlayer,
-		isGameRunning,
-		displayBoard,
-		startGame,
-	};
+	return { startGame };
 }
 
 const game = createGame("Rob", "Ella");
