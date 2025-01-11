@@ -32,7 +32,7 @@ function createGame(player1, player2) {
 			(board[2][0] === t && board[2][1] === t && board[2][2] === t) ||
 			(board[0][0] === t && board[1][0] === t && board[2][0] === t) ||
 			(board[1][0] === t && board[1][1] === t && board[2][1] === t) ||
-			(board[2][0] === t && board[1][2] === t && board[2][2] === t) ||
+			(board[2][0] === t && board[2][1] === t && board[2][2] === t) ||
 			(board[0][0] === t && board[1][1] === t && board[2][2] === t) ||
 			(board[2][0] === t && board[1][1] === t && board[0][2] === t)
 		) {
@@ -54,6 +54,16 @@ function createGame(player1, player2) {
 		}
 	}
 
+	function anySpacesLeft() {
+		if (
+			board[0].some((x) => x === "-") ||
+			board[1].some((x) => x === "-") ||
+			board[2].some((x) => x === "-")
+		) {
+			return true;
+		} else return false;
+	}
+
 	function startGame() {
 		while (isGameRunning) {
 			const row = prompt(currentPlayer.name + " row: ");
@@ -69,7 +79,9 @@ function createGame(player1, player2) {
 				console.log(currentPlayer.name + " wins!");
 				isGameRunning = false;
 			} else {
+				isGameRunning = anySpacesLeft();
 				currentPlayer = switchPlayer();
+				console.log("Draw!");
 			}
 		}
 	}
