@@ -2,6 +2,7 @@ const infoText = document.getElementById("info-text");
 let firstPlayer = new Player("Rob", "x");
 let secondPlayer = new Player("Ella", "o");
 let currentPlayer = firstPlayer;
+let isGameRunning = true;
 
 function Spot(htmlId, position) {
 	this.htmlId = htmlId;
@@ -37,39 +38,31 @@ positions.forEach((pos) => {
 });
 
 function playTurn(pos) {
-	if (isValid(pos.position)) {
-		placeToken(pos.htmlId, currentPlayer.token);
+	if (isGameRunning && isValid(pos.position)) {
+		placeToken(pos, currentPlayer.token);
 
 		if (isWinner()) {
-			console.log("winner!");
-			disableEventListeners();
+			isGameRunning = false;
 			infoText.textContent = currentPlayer.name + " wins!";
 		} else if (anySpacesLeft()) {
 			switchPlayer();
 		} else {
-			disableEventListeners();
+			isGameRunning = false;
 			infoText.textContent = "Draw!";
 		}
 	}
 }
 
-function disableEventListeners() {
-	positions.forEach((pos) => {
-		const ele = document.getElementById(pos.htmlId);
-		ele.removeEventListener("click", playTurn);
-	});
-}
-
-function placeToken(id, token) {
-	const spot = document.getElementById(id);
+function placeToken(pos, token) {
+	const spot = document.getElementById(pos.htmlId);
 	if (token === "x") {
 		spot.classList.add("x-token");
 	} else {
 		spot.classList.add("o-token");
 	}
 
-	const ele = document.getElementById(id);
-	ele.removeEventListener("click", playTurn);
+	board[pos.position[0]][pos.position[1]] = token;
+	const ele = document.getElementById(pos.htmlId);
 }
 
 function switchPlayer() {
@@ -84,14 +77,14 @@ function isWinner() {
 	const t = currentPlayer.token;
 
 	if (
-		(board[0][0] === t && board[0][1] === t && board[0][2] === t) ||
-		(board[1][0] === t && board[1][1] === t && board[1][2] === t) ||
-		(board[2][0] === t && board[2][1] === t && board[2][2] === t) ||
-		(board[0][0] === t && board[1][0] === t && board[2][0] === t) ||
-		(board[1][0] === t && board[1][1] === t && board[2][1] === t) ||
-		(board[2][0] === t && board[2][1] === t && board[2][2] === t) ||
-		(board[0][0] === t && board[1][1] === t && board[2][2] === t) ||
-		(board[2][0] === t && board[1][1] === t && board[0][2] === t)
+		(board[0][0] === t && board[0][1] === t && board[0][2] === t) || // top row
+		(board[1][0] === t && board[1][1] === t && board[1][2] === t) || // middle row
+		(board[2][0] === t && board[2][1] === t && board[2][2] === t) || // bottom row
+		(board[0][0] === t && board[1][0] === t && board[2][0] === t) || // left column
+		(board[0][1] === t && board[1][1] === t && board[2][1] === t) || // middle column
+		(board[2][0] === t && board[2][1] === t && board[2][2] === t) || // right column
+		(board[0][0] === t && board[1][1] === t && board[2][2] === t) || // diagonal \
+		(board[2][0] === t && board[1][1] === t && board[0][2] === t) // ---diagonal /
 	) {
 		return true;
 	} else return false;
