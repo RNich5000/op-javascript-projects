@@ -1,0 +1,30 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	margin: 100px;
+	display: grid;
+	grid-template-columns: repeat(3, 100px);
+	grid-template-rows: repeat(3, 100px);
+}
+
+.spot {
+	border: 1px solid black;
+	background-size: 80px 80px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.spot:hover {
+	cursor: pointer;
+}
+
+.x-token {
+	background-image: url("./img/x.png");
+}
+
+.o-token {
+	background-image: url("./img/o.png");
+}
